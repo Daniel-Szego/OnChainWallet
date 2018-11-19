@@ -12,23 +12,29 @@ contract OnChainWallet {
     }
     
     // MODIFIERS
-    modifier isOwner() {
-        bool containsCurrent = false;
-        for (uint i = 0; i < owners.length; i++ ){
-            if (owners[i] == msg.sender){
-                containsCurrent = true;
-            }
-        }
+    modifier currentIsOwner() {
+        bool containsCurrent = isOwner(msg.sender);
         assert(containsCurrent == true);
         _;
     }
 
     // FUNCTIONS
-    function addOwner(address newOwner) isOwner() {
+    function isOwner(address _addressIsOwner) view returns (bool){
+        bool containsCurrent = false;
+        for (uint i = 0; i < owners.length; i++ ){
+            if (owners[i] == msg.sender){
+                containsCurrent = true;
+            } 
+        }
+        return containsCurrent;
+    }
+
+
+    function addOwner(address newOwner) currentIsOwner() {
         owners.push(newOwner);
     }
 
-    function deleteOwner(address newOwner) isOwner() {
+    function deleteOwner(address newOwner) currentIsOwner() {
         int indexToDelete = -1;
         for (uint i = 0; i < owners.length; i++ ){
             if (owners[i] == msg.sender){
