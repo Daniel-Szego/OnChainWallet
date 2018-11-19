@@ -46,6 +46,11 @@ contract OnChainWallet {
         return containsCurrent;
     }
 
+    // getting balance of the contract
+    function balanceOf() view returns (uint){
+        return address(this).balance;
+    }
+
     // adding an owner account
     function addOwner(address newOwner) currentIsOwner() {
         owners.push(newOwner);
@@ -82,10 +87,11 @@ contract OnChainWallet {
 
     // start an ether transfer or a tranfer request
     function transferEtherRequest(address to, uint value) currentIsOwner public returns (uint) {
-        require(address(this).balance > value);
+        require(address(this).balance >= value);
         // transfer ether
         if (approvementNr == 1) {
             to.transfer(value);
+            return 0;
         }
         // create request
         else {
@@ -98,6 +104,7 @@ contract OnChainWallet {
             );
             requestNum = requestNum + 1;
             requests[requestNum] = request;
+            return requestNum;
         }
     }
 
