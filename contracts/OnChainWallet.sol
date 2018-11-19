@@ -5,6 +5,17 @@ contract OnChainWallet {
     string public version = "0.0.1";
     int public approvementNr;
     address[] public owners;
+    mapping(uint => Request) requests;
+
+    enum RequestStatus {PENDING, TRANSFERED}
+
+    struct Request {
+        address toAddress;
+        uint amount;
+        string assetType;
+        uint approvementNeeded;
+        RequestStatus requestStatus;
+    }
 
     constructor(int _approveentNr){
         approvementNr = _approveentNr;
@@ -17,6 +28,9 @@ contract OnChainWallet {
         assert(containsCurrent == true);
         _;
     }
+
+    // FALLBACK
+    function () public payable {}  
 
     // FUNCTIONS
     function isOwner(address _addressIsOwner) view returns (bool){
@@ -44,6 +58,22 @@ contract OnChainWallet {
         if (indexToDelete > -1) {
             delete owners[uint(indexToDelete)];
         }
+    }
+
+    function getRequestInfo(uint requestNr) returns (address toAddress,uint amount,string assetType, uint approvementNeeded, uint requestStatus) {
+        toAddress = requests[requestNr].toAddress;
+        amount = requests[requestNr].amount;
+        assetType = requests[requestNr].assetType;
+        approvementNeeded = requests[requestNr].approvementNeeded;
+        requestStatus = uint(requests[requestNr].requestStatus);
+    }
+
+    function transferEtherRequest(address to, uint value) currentIsOwner public returns (uint) {
+
+    }
+
+    function etherRequestApprove(uint requestNr) currentIsOwner public {
+
     }
 
 }
