@@ -16,6 +16,7 @@ contract OnChainWallet {
         string assetType;
         int approvementNeeded;
         RequestStatus requestStatus;
+        address[] voted;
     }
 
     constructor(int _approvementNr){
@@ -100,16 +101,21 @@ contract OnChainWallet {
                 value,
                 "ETH",
                 approvementNr,
-                RequestStatus.PENDING
+                RequestStatus.PENDING,
+                new address[](0)
             );
             requestNum = requestNum + 1;
             requests[requestNum] = request;
+            requests[requestNum].voted.push(msg.sender);
             return requestNum;
         }
     }
 
     // adding approvement to a  request
     function etherRequestApprove(uint requestNr) currentIsOwner public {
+            if (alreadyVoted(requestNr)){
+                revert();
+            }
             Request memory request = requests[requestNr];
             if (request.approvementNeeded < approvementNr - 1) {
                 requests[requestNr].approvementNeeded = requests[requestNr].approvementNeeded + 1;
@@ -119,7 +125,17 @@ contract OnChainWallet {
                 requests[requestNr].approvementNeeded =  requests[requestNr].approvementNeeded + 1; 
                 requests[requestNr].requestStatus = RequestStatus.TRANSFERED;
             }
+    }
 
+    // checking if current address areaf
+    function alreadyVoted(uint requestNr) view internal returns (bool) {
+        Request memory request = requests[requestNr];
+        for (uint i = 0; i < request.voted.length; i ++){
+            if (request.voted[i] == msg.sender ){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
