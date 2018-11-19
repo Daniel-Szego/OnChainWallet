@@ -25,47 +25,43 @@
                   </div>
                 </div>
           
-                <div id="votingRow" class="row">
-                        <div class="col-sm-6 col-sm-push-3 col-md-4 col-md-push-4">
-                          <div class="panel panel-default">
-                            <div class="panel-heading">
-                              <div>Voting state: <span id="TTVoting"></span> </div>
-                              <br/>
-                              <div>from: <span id="TTfrom"></span> to: <span id="TTto"></span> </div>
-                              <br/>
-                              <div>Address: <span id="TTAddress"></span> </div>
-                              <br/>
-                              <div>Winner: <span id="TTWinner"></span> </div>                              
-                            </div>
-                            <div class="panel-body">
-                              <div id = "DIVVote">
-                                 <h4>Vote</h4>
-                                <input type="text" class="form-control" id="TTVoteNr" placeholder="Vote" />
-                                <input type="text" class="form-control" id="TTVoteSalt" placeholder="Salt" />
-                                <br/>                               
-                                <button class="btn btn-primary" id="voteButton" type="button">Send Vote</button>
-                             </div>
-                              <div id = "DIVRevealVote">
-                                <h4>Reveal Vote</h4>
-                                <input type="text" class="form-control" id="TTRevealVoteNr" placeholder="Vote" />
-                                <input type="text" class="form-control" id="TTRevealVoteSalt" placeholder="Salt" />
-                                <br/>                               
-                                <button class="btn btn-primary" id="revealVoteButton" type="button">Reveal Vote</button>
-                              </div>
-                              <div id = "DIVRevealVote">
-                                <h4>State Change</h4>
-                                <button class="btn btn-primary" id="startVoting" type="button">Start Voting</button>
-                                <br/>
-                                <button class="btn btn-primary" id="startCounting" type="button">Start Counting</button>
-                                <br/>
-                                <button class="btn btn-primary" id="finishVote" type="button">FinishVote</button>
-                                <br/>
-                              </div>                              
-                            </div>
-                          </div>
+                <div id="walletRow" class="row">
+                  <div class="col-sm-6 col-sm-push-3 col-md-4 col-md-push-4">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <div>Address: <span id="TTAddress"></span> </div>
+                        <br/>
+                        <div>ApprovementNr: <span id="TTApprovement"></span> </div>
+                        <br/>
+                      </div>
+                      <div class="panel-body">
+                          <strong>Token Balance</strong>: <span id="TTBalanceToken"></span> <br/><br/>
+                          <strong>Ether Balance</strong>: <span id="TTBalanceEther"></span>  <strong>(Wei)</strong> <br/><br/>
+                        <div id = "DIVCreate">
+                           <h4>Create New Wallet</h4>
+                          <input type="text" class="form-control" id="TTWalletID" placeholder="Name" />
+                          <input type="password" class="form-control" id="TTWalletPW" placeholder="Password" />
+                          <input type="checkbox" onclick="showPassword()"> Show Password
+                          <br/>                               
+                          <input type="text" class="form-control" id="TTWalletTokenNr" placeholder="Token Number" />                                
+                          <br/>                                                               
+                          <button class="btn btn-primary" id="createWalletButton" type="button">Create New Wallet</button>
+                       </div>
+                        <div id = "DIVTransfer">
+                          <h4>Transfer Token</h4>
+                          <input type="text" class="form-control" id="TTTransferTokenAddress" placeholder="Address" />
+                          <input type="text" class="form-control" id="TTTransferTokenAmount" placeholder="Amount" />              
+                          <button class="btn btn-primary" id="transferTokenButton" type="button">Transfer Token</button>
                         </div>
+                        <div id = "DIVBackup">
+                          <h4>Backup Wallet</h4>
+                          <button class="btn btn-primary" id="backupWalletButton" type="button">Backup Wallet</button>
+                         </div>    
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
 
     </div>
 

@@ -5,11 +5,11 @@ contract OnChainWallet {
     string public version = "0.0.1";
     int public approvementNr;
     address[] public owners;
-    mapping(uint => Request) requests;
-    uint public requestNum;
+    Request request;
 
     enum RequestStatus {PENDING, TRANSFERED}
 
+    // Ether or token transfer request
     struct Request {
         address toAddress;
         uint amount;
@@ -19,16 +19,30 @@ contract OnChainWallet {
         address[] voted;
     }
 
+    // constructor
     constructor(int _approvementNr){
         approvementNr = _approvementNr;
         owners.push(msg.sender);
-        requestNum = 0;
+        // initializing request to default
+        request = Request(
+                msg.sender,
+                0,
+                "DFT",
+                0,
+                RequestStatus.TRANSFERED,
+                new address[](0)
+            );
     }
     
     // MODIFIERS
     modifier currentIsOwner() {
         bool containsCurrent = isOwner(msg.sender);
         assert(containsCurrent == true);
+        _;
+    }
+
+    modifier requestPending() {
+        require(request.requestStatus == RequestStatus.PENDING);
         _;
     }
 
@@ -78,25 +92,24 @@ contract OnChainWallet {
 
     // TRANSFERRING FUNCTIONS
     // getting informaton regarding a request
-    function getRequestInfo(uint requestNr) returns (address toAddress,uint amount,string assetType, int approvementNeeded, uint requestStatus) {
-        toAddress = requests[requestNr].toAddress;
-        amount = requests[requestNr].amount;
-        assetType = requests[requestNr].assetType;
-        approvementNeeded = requests[requestNr].approvementNeeded;
-        requestStatus = uint(requests[requestNr].requestStatus);
+    function getRequestInfo() returns (address toAddress,uint amount,string assetType, int approvementNeeded, uint requestStatus) {
+        toAddress = request.toAddress;
+        amount = request.amount;
+        assetType = request.assetType;
+        approvementNeeded = request.approvementNeeded;
+        requestStatus = uint(request.requestStatus);
     }
 
     // start an ether transfer or a tranfer request
-    function transferEtherRequest(address to, uint value) currentIsOwner public returns (uint) {
+    function transferEtherRequest(address to, uint value) currentIsOwner() public {
         require(address(this).balance >= value);
         // transfer ether
         if (approvementNr == 1) {
             to.transfer(value);
-            return 0;
         }
         // create request
         else {
-            Request memory request = Request(
+            request = Request(
                 to,
                 value,
                 "ETH",
@@ -104,32 +117,27 @@ contract OnChainWallet {
                 RequestStatus.PENDING,
                 new address[](0)
             );
-            requestNum = requestNum + 1;
-            requests[requestNum] = request;
-            requests[requestNum].voted.push(msg.sender);
-            return requestNum;
+            request.voted.push(msg.sender);
         }
     }
 
     // adding approvement to a  request
-    function etherRequestApprove(uint requestNr) currentIsOwner public {
-            if (alreadyVoted(requestNr)){
+    function etherRequestApprove() currentIsOwner() requestPending() public {
+            if (alreadyVoted()){
                 revert();
             }
-            Request memory request = requests[requestNr];
             if (request.approvementNeeded < approvementNr - 1) {
-                requests[requestNr].approvementNeeded = requests[requestNr].approvementNeeded + 1;
+                request.approvementNeeded = request.approvementNeeded + 1;
             }
             else {
                 request.toAddress.transfer(request.amount);
-                requests[requestNr].approvementNeeded =  requests[requestNr].approvementNeeded + 1; 
-                requests[requestNr].requestStatus = RequestStatus.TRANSFERED;
+                request.approvementNeeded =  request.approvementNeeded + 1; 
+                request.requestStatus = RequestStatus.TRANSFERED;
             }
     }
 
     // checking if current address areaf
-    function alreadyVoted(uint requestNr) view internal returns (bool) {
-        Request memory request = requests[requestNr];
+    function alreadyVoted() view internal returns (bool) {
         for (uint i = 0; i < request.voted.length; i ++){
             if (request.voted[i] == msg.sender ){
                 return true;

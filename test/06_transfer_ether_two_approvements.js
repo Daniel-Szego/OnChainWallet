@@ -14,23 +14,27 @@ contract('Wallet', function(accounts) {
             return WalletInstance.version({from: accounts[0]});             
         }).then(function(result) {
             version = result;
+            console.log("version" + result);
             return WalletInstance.balanceOf({from: accounts[0]});             
         }).then(function(result) {
             WalletBalancePre = result;            
+            console.log("wallet balance before" + result);            
             return WalletInstance.setRequiredApproverNr(2,{from: accounts[0]});             
         }).then(function(result) {
+            console.log("approvement set");
             return WalletInstance.approvementNr({from: accounts[0]});             
         }).then(function(result) {    
             approvementNr = result;
+            console.log("approvement number" + approvementNr);            
             return WalletInstance.addOwner(accounts[1]);             
         }).then(function(result) {            
+            console.log("owner added");                        
             return WalletInstance.transferEtherRequest(accounts[0], 500000000000000000, {from: accounts[0]});             
         }).then(function(result) {
-            return WalletInstance.requestNum({from: accounts[0]});             
+            console.log("transferEtherRequested");    
+            return WalletInstance.etherRequestApprove({from: accounts[1]});             
         }).then(function(result) {
-            requestNr = result;
-            return WalletInstance.etherRequestApprove(requestNr, {from: accounts[1]});             
-        }).then(function(result) {
+            console.log("transferEtherApproved");                
             return WalletInstance.balanceOf({from: accounts[0]});             
         }).then(function(result) {
             WalletBalancePost = result;       
@@ -38,7 +42,6 @@ contract('Wallet', function(accounts) {
             assert.equal(approvementNr.toNumber(), 2, "2 approvements are needed");                              
             assert.equal(WalletBalancePre, 1000000000000000000, "wallet balance set");                  
             assert.equal(WalletBalancePost, 500000000000000000, "wallet balance null");                              
-            assert.equal(requestNr.toNumber(), 1, "request number increased");                              
         });
     });
 });

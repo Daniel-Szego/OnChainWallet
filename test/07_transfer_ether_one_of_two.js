@@ -26,9 +26,6 @@ contract('Wallet', function(accounts) {
         }).then(function(result) {            
             return WalletInstance.transferEtherRequest(accounts[0], 500000000000000000, {from: accounts[0]});             
         }).then(function(result) {
-            return WalletInstance.requestNum({from: accounts[0]});             
-        }).then(function(result) {
-            requestNr = result;
             return WalletInstance.balanceOf({from: accounts[0]});             
         }).then(function(result) {
             WalletBalancePost = result;       
@@ -36,7 +33,6 @@ contract('Wallet', function(accounts) {
             assert.equal(approvementNr.toNumber(), 2, "2 approvements are needed");                              
             assert.equal(WalletBalancePre, 1000000000000000000, "wallet balance set");                  
             assert.equal(WalletBalancePost, 1000000000000000000, "wallet balance null");                              
-            assert.equal(requestNr.toNumber(), 1, "request number increased");                              
         });
     });
 });
