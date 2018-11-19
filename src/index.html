@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Test Voting UI</title>
+    <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        
+
+    <script src="./js/web3.min.js"></script>
+    <script src="./js/jquery.min.js"></script>    
+  
+
+</head>
+<body>
+
+        <div class="container">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                    <h1 class="text-center">On chain wallet</h1>
+                    <hr/>
+                    <br/>
+                  </div>
+                </div>
+          
+                <div id="votingRow" class="row">
+                        <div class="col-sm-6 col-sm-push-3 col-md-4 col-md-push-4">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <div>Voting state: <span id="TTVoting"></span> </div>
+                              <br/>
+                              <div>from: <span id="TTfrom"></span> to: <span id="TTto"></span> </div>
+                              <br/>
+                              <div>Address: <span id="TTAddress"></span> </div>
+                              <br/>
+                              <div>Winner: <span id="TTWinner"></span> </div>                              
+                            </div>
+                            <div class="panel-body">
+                              <div id = "DIVVote">
+                                 <h4>Vote</h4>
+                                <input type="text" class="form-control" id="TTVoteNr" placeholder="Vote" />
+                                <input type="text" class="form-control" id="TTVoteSalt" placeholder="Salt" />
+                                <br/>                               
+                                <button class="btn btn-primary" id="voteButton" type="button">Send Vote</button>
+                             </div>
+                              <div id = "DIVRevealVote">
+                                <h4>Reveal Vote</h4>
+                                <input type="text" class="form-control" id="TTRevealVoteNr" placeholder="Vote" />
+                                <input type="text" class="form-control" id="TTRevealVoteSalt" placeholder="Salt" />
+                                <br/>                               
+                                <button class="btn btn-primary" id="revealVoteButton" type="button">Reveal Vote</button>
+                              </div>
+                              <div id = "DIVRevealVote">
+                                <h4>State Change</h4>
+                                <button class="btn btn-primary" id="startVoting" type="button">Start Voting</button>
+                                <br/>
+                                <button class="btn btn-primary" id="startCounting" type="button">Start Counting</button>
+                                <br/>
+                                <button class="btn btn-primary" id="finishVote" type="button">FinishVote</button>
+                                <br/>
+                              </div>                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+    </div>
+
+    <script src="./js/Walletfunctions.js"></script>
+    
+
+</body>
+</html>
