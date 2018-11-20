@@ -92,7 +92,28 @@ contract OnChainWallet {
 
     // TRANSFERRING FUNCTIONS
     // getting informaton regarding a request
-    function getRequestInfo() returns (address toAddress,uint amount,string assetType, int approvementNeeded, uint requestStatus) {
+
+    function getRequestAddress() view public returns (address toAddress) {
+        toAddress = request.toAddress;
+    }
+
+    function getRequestAmount() view public returns (uint amount) {
+        amount = request.amount;
+    }
+
+    function getRequestAssettype() view public returns (string assetType) {
+        assetType = request.assetType;
+    }
+
+    function getRequestApprovementNeeded() view public returns (int approvementNeeded) {
+        approvementNeeded = request.approvementNeeded;
+    }
+
+    function getRequestStatus() view public returns (uint requestStatus) {
+        requestStatus = uint(request.requestStatus);
+    }
+
+    function getRequestInfo() view public returns (address toAddress,uint amount,string assetType, int approvementNeeded, uint requestStatus) {
         toAddress = request.toAddress;
         amount = request.amount;
         assetType = request.assetType;

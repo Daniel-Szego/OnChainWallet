@@ -10,8 +10,27 @@
     var TestTokenABI = [
       {
         "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "owners",
+        "outputs": [
+          {
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
         "inputs": [],
-        "name": "to",
+        "name": "approvementNr",
         "outputs": [
           {
             "name": "",
@@ -37,88 +56,9 @@
         "type": "function"
       },
       {
-        "constant": true,
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "votingState",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint8"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "winnerValue",
-        "outputs": [
-          {
-            "name": "",
-            "type": "int256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "from",
-        "outputs": [
-          {
-            "name": "",
-            "type": "int256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
         "inputs": [
           {
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "name": "blindVotes",
-        "outputs": [
-          {
-            "name": "",
-            "type": "string"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "name": "_from",
-            "type": "int256"
-          },
-          {
-            "name": "_to",
+            "name": "_approvementNr",
             "type": "int256"
           }
         ],
@@ -127,83 +67,198 @@
         "type": "constructor"
       },
       {
-        "anonymous": false,
-        "inputs": [],
-        "name": "VotingStarted",
-        "type": "event"
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "fallback"
       },
       {
-        "anonymous": false,
-        "inputs": [],
-        "name": "CountingStarted",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
+        "constant": true,
         "inputs": [
           {
-            "indexed": false,
-            "name": "result",
+            "name": "_addressIsOwner",
+            "type": "address"
+          }
+        ],
+        "name": "isOwner",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "balanceOf",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "addOwner",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "deleteOwner",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "_newApproverNr",
             "type": "int256"
           }
         ],
-        "name": "VotingClosed",
-        "type": "event"
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "startVotingRound",
+        "name": "setRequiredApproverNr",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
       },
       {
-        "constant": false,
+        "constant": true,
         "inputs": [],
-        "name": "startCountingRound",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "finishVoting",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
+        "name": "getRequestAddress",
+        "outputs": [
           {
-            "name": "blindVote",
+            "name": "toAddress",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "getRequestAmount",
+        "outputs": [
+          {
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "getRequestAssettype",
+        "outputs": [
+          {
+            "name": "assetType",
             "type": "string"
           }
         ],
-        "name": "vote",
-        "outputs": [],
         "payable": false,
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function"
       },
       {
-        "constant": false,
-        "inputs": [
+        "constant": true,
+        "inputs": [],
+        "name": "getRequestApprovementNeeded",
+        "outputs": [
           {
-            "name": "vote",
+            "name": "approvementNeeded",
+            "type": "int256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "getRequestStatus",
+        "outputs": [
+          {
+            "name": "requestStatus",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "getRequestInfo",
+        "outputs": [
+          {
+            "name": "toAddress",
+            "type": "address"
+          },
+          {
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "name": "assetType",
+            "type": "string"
+          },
+          {
+            "name": "approvementNeeded",
             "type": "int256"
           },
           {
-            "name": "salt",
-            "type": "string"
+            "name": "requestStatus",
+            "type": "uint256"
           }
         ],
-        "name": "revealVote",
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "name": "value",
+            "type": "uint256"
+          }
+        ],
+        "name": "transferEtherRequest",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -211,26 +266,16 @@
       },
       {
         "constant": false,
-        "inputs": [
-          {
-            "name": "source",
-            "type": "string"
-          }
-        ],
-        "name": "stringToBytes32",
-        "outputs": [
-          {
-            "name": "result",
-            "type": "bytes32"
-          }
-        ],
+        "inputs": [],
+        "name": "etherRequestApprove",
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
       }
     ];
     
-    var TestTokenAddress = "0xcfed223fab2a41b5a5a5f9aaae2d1e882cb6fe2d";
+    var TestTokenAddress = "0xf204a4ef082f5c04bb89f7d5e6568b796096735a";
     var TestTokenContract = web3.eth.contract(TestTokenABI).at(TestTokenAddress);
     var fromAddress;
 
@@ -260,12 +305,13 @@
 
     function refreshVisibility(){
       var account = getAccountAddress();
-      var votingState = getVotingState();
-      var votingFrom = getVotingFrom();
-      var votingTo = getVotingTo();
-      var winner = getWinner();
-
-      $("#TTAddress").text(account);
+      getApprovementNr();
+      getEtherBalance(account);
+      getRequestAddress();
+      getReqestAmount();
+      getRequestAssetType();
+      getRequestApprovementNr();
+      getRequestStatus();
     }
 
 
@@ -275,115 +321,82 @@
     function getAccountAddress(){
       var account = web3.eth.accounts[0];
       fromAddress = account;
+      $("#TTAddress").text(account);      
       return account;
     }
     
-    function getVotingState(){
-      var votingState = TestTokenContract.votingState.call(function(error, value) {
+    function getApprovementNr(){
+      var votingState = TestTokenContract.approvementNr.call(function(error, value) {
         if (!error) {
           console.log('success');
-          $("#TTVoting").text(value);          
+          $("#TTApprovement").text(value);          
       } else {
           console.log(err);
       }
       });
     }
 
-    function getVotingFrom(){
-      var from = TestTokenContract.from.call(function(error, value) {
+    function getEtherBalance(account){
+      var balance = web3.eth.getBalance(account, function (error, result) {
+        if (error) {
+          console.log(error);
+        } else {
+          $("#TTBalanceEther").text(result);            
+        }
+      });       
+    }
+
+    function getRequestAddress() {
+      var requestAddress = TestTokenContract.getRequestAddress(function(error, value) {
         if (!error) {
           console.log('success');
-          $("#TTfrom").text(value);
-        } else {
+          $("#TTRequestAddress").text(value);          
+      } else {
           console.log(err);
-      }}
-      );
-    }
-
-    function getVotingTo(){
-      var to = TestTokenContract.to.call(function(error, value) {
-        if (!error) {
-          console.log('success');
-          $("#TTto").text(value);
-        } else {
-          console.log(err);
-      }});
-    }
-
-    function getWinner() {
-      var winnerValue = TestTokenContract.winnerValue.call(function(error, value) {
-        if (!error) {
-          console.log('success');
-          $("#TTWinner").text(value);      
-        } else {
-          console.log(err);
-      }});
-    }
-
-    //WRITE
-    function vote(){
-      var value = $("#TTVoteNr").val();
-      var salt = $("#TTVoteSalt").val();
-      var hash = sha256(value.toString() + salt);
-
-      var retVal = TestTokenContract.vote(hash,
-        function(error, result){
-        if (!error){
-          alert("Vote has been succeeded");
-        } else {
-          console.log(error);
-        }
-      }); 
-    }
-
-    function revealVote(){
-      var value = $("#TTRevealVoteNr").val();
-      var salt = $("#TTRevealVoteSalt").val();
-
-      var retVal = TestTokenContract.revealVote(value,salt,
-        function(error, result){
-        if (!error){
-          alert("Vote has been succeeded");
-        } else {
-          console.log(error);
-        }
-      }); 
-    }
-
-    function startVoting() {
-
-      var retVal =  TestTokenContract.startVotingRound( 
-        function(error, result){
-        if (!error){
-          alert("success");       
-        } else {
-          console.log(error);
-        }
+      }
       });
     }
 
-    function startCounting(){
-
-      var retVal =  TestTokenContract.startCountingRound( 
-        function(error, result){
-        if (!error){
-          alert("success");       
-        } else {
-          console.log(error);
-        }
+    function getReqestAmount(){
+      var requestAmount = TestTokenContract.getRequestAmount(function(error, value) {
+        if (!error) {
+          console.log('success');
+          $("#TTRequestAmount").text(value);          
+      } else {
+          console.log(err);
+      }
       });
-
     }
 
-    function finishVote(){
-
-      var retVal =  TestTokenContract.finishVoting( 
-        function(error, result){
-        if (!error){
-          alert("success");       
-        } else {
-          console.log(error);
-        }
+    function getRequestAssetType(){
+      var requestAssetType = TestTokenContract.getRequestAssettype(function(error, value) {
+        if (!error) {
+          console.log('success');
+          $("#TTRequestAssetType").text(value);          
+      } else {
+          console.log(err);
+      }
       });
+    }
 
+    function getRequestApprovementNr(){
+      var requestApprovementNr = TestTokenContract.getRequestApprovementNeeded(function(error, value) {
+        if (!error) {
+          console.log('success');
+          $("#TTRequestApprovementNr").text(value);          
+      } else {
+          console.log(err);
+      }
+      });
+    }
+
+    function getRequestStatus() {
+      var requestStatus = TestTokenContract.getRequestStatus(function(error, value) {
+        if (!error) {
+          console.log('success');
+          $("#TTRequestStatus").text(value);          
+      } else {
+          console.log(err);
+      }
+      });
     }
