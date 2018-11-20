@@ -37,25 +37,22 @@
                       <div class="panel-body">
                           <strong>Token Balance</strong>: <span id="TTBalanceToken"></span> <br/><br/>
                           <strong>Ether Balance</strong>: <span id="TTBalanceEther"></span>  <strong>(Wei)</strong> <br/><br/>
-                        <div id = "DIVCreate">
-                           <h4>Create New Wallet</h4>
-                          <input type="text" class="form-control" id="TTWalletID" placeholder="Name" />
-                          <input type="password" class="form-control" id="TTWalletPW" placeholder="Password" />
-                          <input type="checkbox" onclick="showPassword()"> Show Password
-                          <br/>                               
-                          <input type="text" class="form-control" id="TTWalletTokenNr" placeholder="Token Number" />                                
-                          <br/>                                                               
-                          <button class="btn btn-primary" id="createWalletButton" type="button">Create New Wallet</button>
-                       </div>
+                      <div id = "DIVActiveRequest">
+                            <h4>Active Request</h4>
+                            <div>To Address: <span id="TTRequestAddress"></span> </div>
+                            <div>Amount: <span id="TTRequestAmount"></span> </div>
+                            <div>Asset Type: <span id="TTRequestAssetType"></span> </div>
+                            <div>Approvement Number: <span id="TTRequestApprovementNr"></span> </div>
+                            <div>Request Status: <span id="TTRequestStatus"></span> </div>                            
                         <div id = "DIVTransfer">
-                          <h4>Transfer Token</h4>
+                          <h4>Transfer Ether</h4>
                           <input type="text" class="form-control" id="TTTransferTokenAddress" placeholder="Address" />
                           <input type="text" class="form-control" id="TTTransferTokenAmount" placeholder="Amount" />              
-                          <button class="btn btn-primary" id="transferTokenButton" type="button">Transfer Token</button>
+                          <button class="btn btn-primary" id="transferEtherButton" type="button">Transfer Ether</button>
                         </div>
-                        <div id = "DIVBackup">
-                          <h4>Backup Wallet</h4>
-                          <button class="btn btn-primary" id="backupWalletButton" type="button">Backup Wallet</button>
+                        <div id = "DIVApprove">
+                          <h4>Approve Active Request</h4>
+                          <button class="btn btn-primary" id="approveActiveRequestButton" type="button">Approve Request</button>
                          </div>    
                       </div>
                     </div>
