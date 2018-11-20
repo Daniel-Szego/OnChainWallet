@@ -275,35 +275,24 @@
       }
     ];
     
-    var TestTokenAddress = "0xf204a4ef082f5c04bb89f7d5e6568b796096735a";
+    var TestTokenAddress = "0x345ca3e014aaf5dca488057592ee47305d9b3e10";
     var TestTokenContract = web3.eth.contract(TestTokenABI).at(TestTokenAddress);
     var fromAddress;
 
     refreshVisibility();  
 
-    $("#voteButton").click(function(){
-        vote();
+    $("#transferEtherButton").click(function(){
+        transferEther();
      });
 
-     $("#revealVoteButton").click(function(){
-      revealVote();
-     });
-
-     $("#startVoting").click(function(){
-      startVoting();
-     });
-
-     $("#startCounting").click(function(){
-      startCounting();
-     });
-
-     $("#finishVote").click(function(){
-      finishVote();
+     $("#approveActiveRequestButton").click(function(){
+      approveActiveRequest();
      });
 
      //UI
 
     function refreshVisibility(){
+      $("#TTContractAddress").text(TestTokenAddress);
       var account = getAccountAddress();
       getApprovementNr();
       getEtherBalance(account);
@@ -331,13 +320,13 @@
           console.log('success');
           $("#TTApprovement").text(value);          
       } else {
-          console.log(err);
+          console.log(error);
       }
       });
     }
 
     function getEtherBalance(account){
-      var balance = web3.eth.getBalance(account, function (error, result) {
+      var balance = web3.eth.getBalance(TestTokenAddress, function (error, result) {
         if (error) {
           console.log(error);
         } else {
@@ -352,7 +341,7 @@
           console.log('success');
           $("#TTRequestAddress").text(value);          
       } else {
-          console.log(err);
+          console.log(error);
       }
       });
     }
@@ -363,7 +352,7 @@
           console.log('success');
           $("#TTRequestAmount").text(value);          
       } else {
-          console.log(err);
+          console.log(error);
       }
       });
     }
@@ -374,7 +363,7 @@
           console.log('success');
           $("#TTRequestAssetType").text(value);          
       } else {
-          console.log(err);
+          console.log(error);
       }
       });
     }
@@ -385,7 +374,7 @@
           console.log('success');
           $("#TTRequestApprovementNr").text(value);          
       } else {
-          console.log(err);
+          console.log(error);
       }
       });
     }
@@ -396,7 +385,32 @@
           console.log('success');
           $("#TTRequestStatus").text(value);          
       } else {
-          console.log(err);
+          console.log(error);
       }
       });
     }
+
+    function transferEther() {
+      var toAddress = $("#TTTransferEtherAddress").val();
+      var amount = $("#TTTransferEtherAmount").val();
+
+      var requestStatus = TestTokenContract.transferEtherRequest(toAddress, amount, function(error, value) {
+        if (!error) {
+          alert("Transfer has been succeeded");
+      } else {
+          console.log(error);
+      }
+      });
+    }
+
+    function approveActiveRequest() {
+      
+      var requestStatus = TestTokenContract.etherRequestApprove(function(error, value) {
+        if (!error) {
+          alert("Approve has been succeeded");
+        } else {
+          console.log(error);
+      }
+      });
+    }
+
