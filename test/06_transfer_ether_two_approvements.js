@@ -6,7 +6,7 @@ var WalletBalancePost;
 var approvementNr;
 
 contract('Wallet', function(accounts) {
-    it("test of the Wallet contract", function() {
+    it("test of the Wallet contract: two approvements", function() {
         return Wallet.deployed(1).then(function(instance) {
             WalletInstance = instance;
             WalletInstance.sendTransaction({from:accounts[0],value:1000000000000000000})
@@ -40,8 +40,8 @@ contract('Wallet', function(accounts) {
             WalletBalancePost = result;       
             assert.equal(version, "0.0.1", "version number check");                                          
             assert.equal(approvementNr.toNumber(), 2, "2 approvements are needed");                              
-            assert.equal(WalletBalancePre, 1000000000000000000, "wallet balance set");                  
-            assert.equal(WalletBalancePost, 500000000000000000, "wallet balance null");                              
+            assert.equal(WalletBalancePre.toNumber(), 1000000000000000000, "wallet balance set");                  
+            assert.equal(WalletBalancePost.toNumber(), 500000000000000000, "wallet balance null");                              
         });
     });
 });

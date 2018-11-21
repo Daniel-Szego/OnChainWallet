@@ -134,7 +134,7 @@ contract OnChainWallet {
                 to,
                 value,
                 "ETH",
-                approvementNr,
+                approvementNr - 1,
                 RequestStatus.PENDING,
                 new address[](0)
             );
@@ -147,12 +147,12 @@ contract OnChainWallet {
             if (alreadyVoted()){
                 revert();
             }
-            if (request.approvementNeeded < approvementNr - 1) {
-                request.approvementNeeded = request.approvementNeeded + 1;
+            if (request.approvementNeeded > 1) {
+                request.approvementNeeded = request.approvementNeeded - 1;
             }
             else {
                 request.toAddress.transfer(request.amount);
-                request.approvementNeeded =  request.approvementNeeded + 1; 
+                request.approvementNeeded =  request.approvementNeeded - 1; 
                 request.requestStatus = RequestStatus.TRANSFERED;
             }
     }

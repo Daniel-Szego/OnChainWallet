@@ -6,7 +6,7 @@ var approvementNrPost;
 
 
 contract('Wallet', function(accounts) {
-    it("test of the Wallet contract", function() {
+    it("test of the Wallet contract: approvement change", function() {
         return Wallet.deployed(1).then(function(instance) {
             WalletInstance = instance;
             return WalletInstance.version({from: accounts[0]});             

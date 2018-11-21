@@ -6,7 +6,7 @@ var WalletBalancePost;
 var approvementNr;
 
 contract('Wallet', function(accounts) {
-    it("test of the Wallet contract", function() {
+    it("test of the Wallet contract: two times same approvement", function() {
         return Wallet.deployed(1).then(function(instance) {
             WalletInstance = instance;
             WalletInstance.sendTransaction({from:accounts[0],value:1000000000000000000})
