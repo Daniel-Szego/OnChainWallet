@@ -289,6 +289,15 @@
       approveActiveRequest();
      });
 
+     $("#setApprovementNrButton").click(function(){
+      setApprovementNr();
+     });
+
+     $("#addOwnerButton").click(function(){
+      addOwner();
+     });
+
+
      //UI
 
     function refreshVisibility(){
@@ -408,6 +417,28 @@
       var requestStatus = TestTokenContract.etherRequestApprove(function(error, value) {
         if (!error) {
           alert("Approve has been succeeded");
+        } else {
+          console.log(error);
+      }
+      });
+    }
+
+    function setApprovementNr() {
+      var approvementNr = $("#TTApprovementNr").val();
+      var requestStatus = TestTokenContract.setRequiredApproverNr(approvementNr,function(error, value) {
+        if (!error) {
+          alert("Set has been succeeded");
+        } else {
+          console.log(error);
+      }
+      });
+    }
+
+    function addOwner() {
+      var approvementAddress = $("#TTApprovementAddress").val();
+      var requestStatus = TestTokenContract.addOwner(approvementAddress, function(error, value) {
+        if (!error) {
+          alert("Adding owner has been succeeded");
         } else {
           console.log(error);
       }

@@ -46,7 +46,8 @@
                             <div>Asset Type: <span id="TTRequestAssetType"></span> </div>
                             <div>Approvement Number: <span id="TTRequestApprovementNr"></span> </div>
                             <div>Request Status: <span id="TTRequestStatus"></span> </div>                            
-                        <div id = "DIVTransfer">
+                      </div> 
+                      <div id = "DIVTransfer">
                           <h4>Transfer Ether</h4>
                           <input type="text" class="form-control" id="TTTransferEtherAddress" placeholder="Address" />
                           <input type="text" class="form-control" id="TTTransferEtherAmount" placeholder="Amount" />              
@@ -55,7 +56,14 @@
                         <div id = "DIVApprove">
                           <h4>Approve Active Request</h4>
                           <button class="btn btn-primary" id="approveActiveRequestButton" type="button">Approve Request</button>
-                         </div>    
+                         </div>
+                         <div id = "DIVApprovementConfig">
+                          <h4>Approvement Configuration</h4>
+                          <input type="text" class="form-control" id="TTApprovementNr" placeholder="Approvement Nr" />
+                          <button class="btn btn-primary" id="setApprovementNrButton" type="button">Set Aprrover Nr</button>
+                          <input type="text" class="form-control" id="TTApprovementAddress" placeholder="Address" />
+                          <button class="btn btn-primary" id="addOwnerButton" type="button">Add Owner</button>
+                        </div>    
                       </div>
                     </div>
                   </div>
